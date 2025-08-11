@@ -1,11 +1,27 @@
 <template>
   <div>
     <h1>Todo List</h1>
-    <input v-model="title" @keyup.enter="createTask" placeholder="New task" />
+    <!-- Added type="text" for test compatibility -->
+    <input 
+      type="text" 
+      v-model="title" 
+      @keyup.enter="createTask" 
+      placeholder="New task" 
+    />
+
     <ul>
       <li v-for="task in tasks" :key="task.id">
-        <input type="checkbox" v-model="task.completed" @change="updateTask(task)" />
-        <input v-model="task.title" @blur="updateTask(task)" />
+        <input 
+          type="checkbox" 
+          v-model="task.completed" 
+          @change="updateTask(task)" 
+        />
+        <!-- Added type="text" for test compatibility -->
+        <input 
+          type="text" 
+          v-model="task.title" 
+          @blur="updateTask(task)" 
+        />
         <button @click="deleteTask(task.id)">Delete</button>
       </li>
     </ul>
@@ -16,7 +32,10 @@
 import axios from 'axios';
 export default {
   data() {
-    return { tasks: [], title: '' };
+    return { 
+      tasks: [], 
+      title: '' 
+    };
   },
   mounted() {
     this.fetchTasks();
