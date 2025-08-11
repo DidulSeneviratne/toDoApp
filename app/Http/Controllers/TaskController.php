@@ -23,11 +23,22 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        $validated = $request->validate(['title' => 'required|string']);
-        return Task::create($validated);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'completed' => 'boolean'
+        ]);
+
+        $task = Task::create([
+            'title' => $validated['title'],
+            'completed' => false
+        ]);
+
+        return response()->json($task, 201); // <-- important
     }
+
 
     /**
      * Display the specified resource.
